@@ -9,3 +9,5 @@ print(ord(s_a[5]))
 print('abc\ndef\tg\tagsaeg')
 
 print(ord('ę'))
+print(chr(65))
+print(chr(4747))

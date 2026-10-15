@@ -70,3 +70,5 @@ bi_a = 0b1011
 print(f'bi_a={bi_a}')
 xi_a = 0x1f
 print(f'xi_a={xi_a}')
+import sys
+print(sys.float_info)

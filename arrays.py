@@ -20,3 +20,4 @@ for a in a_a:
     i_s += a
     print(a)
 print(a)
+print(f'i_s={i_s}')

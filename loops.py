@@ -45,5 +45,5 @@ while i < 10:
     print(f'{i}', end=' ')
     i += 1
 
-print('\n' + '-'*60)
+print('\n' + '_*'*60)
 

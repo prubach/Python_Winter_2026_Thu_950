@@ -16,6 +16,7 @@ print(a_b)
 print('-------------------')
 
 i_s = 0
+# For each loop
 for a in a_a:
     i_s += a
     print(f'a={a}')

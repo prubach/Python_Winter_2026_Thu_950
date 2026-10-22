@@ -1,6 +1,6 @@
-points = [[3, 5, 3],
+points = [[3, 5, 3, 6],
           [7, 5, 8, 7],
-          [4, 8, 9]]
+          [4, 8, 9, 4]]
 
 print(points[1][0])
 print(type(points[1][0]))
@@ -33,12 +33,16 @@ def sum_cols(points):
             col_sum[j] += points[i][j]
     return col_sum
 
+def sum_cols_zip(points):
+    return sum_rows(list(zip(*points)))
 
-    #print(col_sum)
+
+#print(col_sum)
 
 
-#def sum_all(points):
+def sum_all(points):
     # return a number - sum of all elements in input 2D list (points)
+    return sum(sum_rows(points))
 
 
 print('-'*60)
@@ -54,3 +58,21 @@ print(l_2)
 
 print('-'*60)
 print(f'sum cols: {sum_cols(points)}')
+
+print('-'*60)
+print(points)
+print(list(zip(points)))
+
+
+print(l_1)
+print(l_2)
+l_3 = list(zip(l_1, l_2))
+print(l_3)
+
+print(list(zip(*l_3)))
+
+print('-'*60)
+print(points)
+print(f'sum cols zip: {sum_cols_zip(points)}')
+
+print(f'sum_all: {sum_all(points)}')

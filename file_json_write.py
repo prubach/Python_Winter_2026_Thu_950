@@ -9,7 +9,5 @@ if __name__ == '__main__':
     dict_rates = read_rates_csv(my_file)
     print(dict_rates)
 
-
-
-
-
+    with open(my_json_file, 'w') as outfile:
+        json.dump(dict_rates, outfile)

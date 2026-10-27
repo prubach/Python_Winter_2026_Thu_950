@@ -24,16 +24,14 @@ def count_bowls_list(n):
 
 
 def count_bowls_recursive(n):
-  if n > 0:
-    result = n + count_bowls_recursive(n - 1)
-  else:
-    result = 0
-  return result
-
-
+    if n > 0:
+        result = n + count_bowls_recursive(n - 1)
+    else:
+        result = 0
+    return result
 
 #def count_bowls_sequence(n):
-n = 5
+n = 998
 print(f'count_bowls({n})={count_bowls(n)}')
 print(f'count_bowls_list({n})={count_bowls_list(n)}')
 print(f'count_bowls_recursive({n})={count_bowls_recursive(n)}')

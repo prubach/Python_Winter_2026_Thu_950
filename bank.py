@@ -12,6 +12,8 @@ class Customer:
 
 class Account:
     last_id = 1000
+    yearly_interest_rate = 0.02  # TODO - will be used to update the interest rate
+
     def __init__(self, customer):
         self.customer = customer
         Account.last_id += 1
@@ -19,6 +21,7 @@ class Account:
         self.balance = 0
 
     def deposit(self, amount):
+        # TODO - as part of the home assignment please extend this method
         if amount > 0:
             self.balance += amount
         else:
@@ -26,6 +29,7 @@ class Account:
             raise BankException('amount cannot be negative')
 
     def withdraw(self, amount):
+        # TODO - as part of the home assignment please extend this method
         self.balance -= amount
 
     def __repr__(self):
@@ -47,6 +51,16 @@ class Bank:
         account = Account(customer)
         self.acc_list.append(account)
         return account
+
+    def transfer_money(self, from_account_id, to_account_id, amount):
+        # TODO - as part of the home assignment please implement this method - as names suggest the input parameters are
+        # ids of the accounts to transfer money from and to and amount to transfer. You may need a helper method to find
+        # those accounts based on their ids.
+        pass
+
+    def run_daily_interest_updater(self):
+        # TODO - as part of the home assignment please implement this method
+        pass
 
     def __repr__(self):
         return f'Bank[{self.name}, {self.cust_list}, {self.acc_list}]'

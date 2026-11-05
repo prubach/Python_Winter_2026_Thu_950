@@ -1,3 +1,5 @@
+from typing import Any
+
 
 class Customer:
     last_id = 0
@@ -20,3 +22,25 @@ class Account:
 
     def __repr__(self):
         return f'Ac[{self.id}, {self.customer.name}, {self.balance}]'
+
+
+class Bank:
+    def __init__(self, name):
+        self.name = name
+        self.acc_list = []
+        self.cust_list = []
+
+    def create_customer(self, name, address):
+        customer = Customer(name, address)
+        self.cust_list.append(customer)
+        return customer
+
+    def create_account(self, customer):
+        account = Account(customer)
+        self.acc_list.append(account)
+        return account
+
+    def __repr__(self):
+        return f'Bank[{self.name}, {self.cust_list}, {self.acc_list}]'
+
+

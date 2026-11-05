@@ -1,5 +1,3 @@
-from typing import Any
-
 
 class Customer:
     last_id = 0

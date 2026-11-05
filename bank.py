@@ -18,6 +18,16 @@ class Account:
         self.id = Account.last_id
         self.balance = 0
 
+    def deposit(self, amount):
+        if amount > 0:
+            self.balance += amount
+        else:
+            #print('amount cannot be negative')
+            raise BankException('amount cannot be negative')
+
+    def withdraw(self, amount):
+        self.balance -= amount
+
     def __repr__(self):
         return f'Ac[{self.id}, {self.customer.name}, {self.balance}]'
 
@@ -41,6 +51,8 @@ class Bank:
     def __repr__(self):
         return f'Bank[{self.name}, {self.cust_list}, {self.acc_list}]'
 
+class BankException(Exception):
+    pass
 
 #TODO
-# Add deposit and charge methods and code that will demonstrate their use
+# Add deposit and withdraw (charge) methods and code that will demonstrate their use

@@ -30,7 +30,7 @@ class Account:
 
     def withdraw(self, amount):
         if self.balance < amount:
-            raise InsufficientFundsException('Insufficient funds, available', self.balance, self.amount)
+            raise InsufficientFundsException('Insufficient funds, available', self.balance, amount)
         self.balance -= amount
 
     def __repr__(self):

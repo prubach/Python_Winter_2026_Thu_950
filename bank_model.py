@@ -27,7 +27,7 @@ class Account(Base):
     balance = Column(Float)
     yearly_interest_rate = Column(Float)
     fk_bank_id = Column(Integer, ForeignKey('bank.id'), nullable=False)
-    bank = relationship('Bank', lazy='select', back_populates='cust_list')
+    bank = relationship('Bank', lazy='select', back_populates='acc_list')
     fk_customer_id = Column(Integer, ForeignKey('customer.id'), nullable=False)
     customer = relationship('Customer', lazy='select', back_populates='accounts')
 
@@ -110,7 +110,7 @@ class DBSession:
     current_db_session = None
 
     def engine(self):
-        url = 'sqlite:///bank.db'
+        url = 'sqlite:///data/bank.db'
         return create_engine(url, echo=True)
 
 

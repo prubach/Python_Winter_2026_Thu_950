@@ -17,8 +17,6 @@ class Customer(Base):
     def __init__(self, name, address):
         self.name = name
         self.address = address
-        Customer.last_id += 1
-        self.id = Customer.last_id
 
     def __repr__(self):
         return f'Cust[{self.id}, {self.name}]'
@@ -35,8 +33,6 @@ class Account(Base):
 
     def __init__(self, customer):
         self.customer = customer
-        Account.last_id += 1
-        self.id = Account.last_id
         self.balance = 0
 
     def deposit(self, amount):
@@ -73,11 +69,13 @@ class Bank(Base):
 
     def create_customer(self, name, address):
         customer = Customer(name, address)
+        customer.fk_bank_id = self.id # Assign customer to bank
         self.cust_list.append(customer)
         return customer
 
     def create_account(self, customer):
-        account = Account(customer)
+        account = Account(customer) # Assign account to bank
+        account.fk_bank_id = self.id
         self.acc_list.append(account)
         return account
 

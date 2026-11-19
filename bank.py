@@ -29,6 +29,8 @@ class Account:
             raise BankException('amount cannot be negative')
 
     def withdraw(self, amount):
+        if amount < 0:
+            raise InvalidAmountException('amount cannot be negative')
         if self.balance < amount:
             raise InsufficientFundsException('Insufficient funds, available', self.balance, amount)
         self.balance -= amount

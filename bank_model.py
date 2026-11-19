@@ -1,6 +1,6 @@
 
-from sqlalchemy import Column, Integer, String, Float, ForeignKey
-from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, create_engine
+from sqlalchemy.orm import declarative_base, relationship, sessionmaker
 
 Base = declarative_base()
 
@@ -104,5 +104,23 @@ class InsufficientFundsException(BankException):
 class InvalidAmountException(BankException):
     pass
 
-#TODO
-# Add deposit and withdraw (charge) methods and code that will demonstrate their use
+
+
+class DBSession:
+    current_db_session = None
+
+    def engine(self):
+        url = 'sqlite:///bank.db'
+        return create_engine(url, echo=True)
+
+
+    def session(self):
+        if not DBSession.current_db_session:
+            Session = sessionmaker(bind=self.engine(), autocommit=False, autoflush=False)
+            current_db_session = Session()
+        return current_db_session
+
+def init_db():
+    db_session = DBSession()
+    Base.metadata.create_all(db_session.engine())
+

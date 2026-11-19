@@ -9,6 +9,9 @@ a2 = bank.create_account(c2)
 print(bank)
 try:
     #a2.deposit(-300)
+    # a = 26236
+    # b = '52235'
+    # c = a + b
     print(f'You have: {a1.balance}')
     withdraw_am = float(input('How much to withdraw: '))
     a1.withdraw(withdraw_am)
@@ -27,6 +30,6 @@ except InsufficientFundsException as e:
     print(e, f'Requested/Available: {req_am}/{avail_am}')
 except InvalidAmountException as b:
     print(b)
-except Exception as e:
+except Exception as e:  # This works but be careful when using it as all bugs will also be caught!!!
     print(e)
 print(bank)

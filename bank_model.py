@@ -1,6 +1,6 @@
 
-from sqlalchemy import Column, Integer, String, Float
-from sqlalchemy.orm import declarative_base
+from sqlalchemy import Column, Integer, String, Float, ForeignKey
+from sqlalchemy.orm import declarative_base, relationship
 
 Base = declarative_base()
 
@@ -10,6 +10,9 @@ class Customer(Base):
     name = Column(String(100))
     email = Column(String)
     address = Column(String(200))
+    fk_bank_id = Column(Integer, ForeignKey('bank.id'), nullable=False)
+    bank = relationship('Bank', lazy='select', back_populates='cust_list')
+    accounts = relationship('Account', lazy='select', back_populates='customer')
 
     def __init__(self, name, address):
         self.name = name
@@ -25,6 +28,10 @@ class Account(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     balance = Column(Float)
     yearly_interest_rate = Column(Float)
+    fk_bank_id = Column(Integer, ForeignKey('bank.id'), nullable=False)
+    bank = relationship('Bank', lazy='select', back_populates='cust_list')
+    fk_customer_id = Column(Integer, ForeignKey('customer.id'), nullable=False)
+    customer = relationship('Customer', lazy='select', back_populates='accounts')
 
     def __init__(self, customer):
         self.customer = customer
@@ -55,6 +62,8 @@ class Bank(Base):
     __tablename__ = 'bank'
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(100))
+    cust_list = relationship('Customer', lazy='select', back_populates='bank')
+    acc_list = relationship('Account', lazy='select', back_populates='bank')
 
 
     def __init__(self, name):

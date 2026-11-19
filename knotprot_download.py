@@ -1,10 +1,14 @@
 import shutil
 import logging
 import os
+from concurrent.futures import ProcessPoolExecutor
+from functools import partial
+from multiprocessing import Pool
 from pathlib import Path
 from urllib.request import urlopen, Request
 from time import time
 from PIL import Image
+from sqlalchemy import exc
 
 #SEARCH_STRING = 'https://knotprot.cent.uw.edu.pl/browse/?set=True&bridgeType=probab&knotTypes=%2B31&array=0&raw=1'
 SEARCH_STRING = 'https://knotprot.cent.uw.edu.pl/browse/?set=True&bridgeType=probab&slipknotTypes=%2B31&array=0&raw=1'
@@ -78,8 +82,30 @@ def run_download_loop(my_dir):
         download_link(my_dir, prot)
     logger.info(f"Downloaded: {i} images")
 
+def run_download_parallel(my_dir):
+    prot_list = get_proteins()
+    download_func = partial(download_link, my_dir)
+    with Pool(processes=16) as pool:
+        pool.map(download_func, prot_list)
+
+
+def run_thumbnails_seq(my_dir):
+    file_list = Path(my_dir).iterdir()
+    for file in file_list:
+        create_thumbnail((324, 324), file)
+
+def run_thumbnails_parallel(my_dir):
+    file_list = Path(my_dir).iterdir()
+    create_thumbnail_func = partial(create_thumbnail, (324, 324))
+    with ProcessPoolExecutor(max_workers=4) as executor:
+        executor.map(create_thumbnail_func, file_list)
+
 
 if __name__ == '__main__':
     download_dir = 'data_images'
     setup_download_dir(download_dir)
-    run_download_loop(download_dir)
+    #run_download_loop(download_dir)
+    #time_it(run_download_loop, download_dir)  # 131s
+    time_it(run_download_parallel, download_dir) # 20s
+    #time_it(run_thumbnails_seq, download_dir)
+    time_it(run_thumbnails_parallel, download_dir)

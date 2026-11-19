@@ -4,3 +4,4 @@ beautifulsoup4
 jupyter
 plotly
 SqlAlchemy
+Pillow

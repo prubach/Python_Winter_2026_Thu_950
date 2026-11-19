@@ -48,7 +48,6 @@ def time_it(proc, dir):
     print('Done {0} in {1} s.'.format(proc.__name__, round(t, 3)))
 
 
-
 ##########
 
 def create_thumbnail(size, path):
@@ -56,7 +55,7 @@ def create_thumbnail(size, path):
     Creates a thumbnail of an image with the same name as image but with
     _thumbnail appended before the extension. E.g.:
 
-    >>> create_thumbnail((128, 128), 'image.jpg')
+    #>>> create_thumbnail((128, 128), 'image.jpg')
 
     A new thumbnail image is created with the name image_thumbnail.jpg
 
@@ -70,3 +69,17 @@ def create_thumbnail(size, path):
     image = Image.open(path)
     image.thumbnail(size)
     image.save(thumbnail_path)
+
+def run_download_loop(my_dir):
+    prot_list = get_proteins()
+    i = 0
+    for prot in prot_list:
+        i = i + 1
+        download_link(my_dir, prot)
+    logger.info(f"Downloaded: {i} images")
+
+
+if __name__ == '__main__':
+    download_dir = 'data_images'
+    setup_download_dir(download_dir)
+    run_download_loop(download_dir)

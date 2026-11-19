@@ -29,7 +29,8 @@ class Account:
             raise BankException('amount cannot be negative')
 
     def withdraw(self, amount):
-        # TODO - as part of the home assignment please extend this method
+        if self.balance < amount:
+            raise InsufficientFundsException('Insufficient funds, available', self.balance, self.amount)
         self.balance -= amount
 
     def __repr__(self):
@@ -66,6 +67,15 @@ class Bank:
         return f'Bank[{self.name}, {self.cust_list}, {self.acc_list}]'
 
 class BankException(Exception):
+    pass
+
+class InsufficientFundsException(BankException):
+    def __init__(self, description, amount_available, amount_requested):
+        super().__init__(description)
+        self.amount_available = amount_available
+        self.amount_requested = amount_requested
+
+class InvalidAmountException(BankException):
     pass
 
 #TODO
